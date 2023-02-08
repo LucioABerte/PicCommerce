@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react'
-
 const Context = React.createContext()
 
-const ContextProvider = ({children}) => {
+const ContextProvider = (props) => {
 
     const [allPics, setAllPics] = useState([])
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
+
+    function toggleFavorite(id) {
+        const updatedArr = allPics.map(photo => {
+            if( photo.id === id){
+                return {...photo, isFavorite: !photo.isFavorite}
+            }
+            return photo
+        })
+        setAllPics(updatedArr)
+    }
 
     useEffect(() => {
       
@@ -16,8 +25,8 @@ const ContextProvider = ({children}) => {
     }, [])
     
     return (
-        <Context.Provider value={{allPics}}>
-            {children}
+        <Context.Provider value={{allPics, toggleFavorite}}>
+            {props.children}
         </Context.Provider>
     )
 }
