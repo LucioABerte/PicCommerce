@@ -26,6 +26,10 @@ const ContextProvider = (props) => {
         setCartItems(prevItems => prevItems.filter(item => item.id !== id))
     }
 
+    function emptyCart() {
+        setCartItems([])
+    }
+
     useEffect(() => {
       
         fetch(url)
@@ -35,7 +39,13 @@ const ContextProvider = (props) => {
     }, [])
     
     return (
-        <Context.Provider value={{allPics, toggleFavorite, addToCart, removeFromCart, cartItems}}>
+        <Context.Provider value={{
+            allPics, 
+            toggleFavorite, 
+            addToCart, 
+            removeFromCart, 
+            cartItems,
+            emptyCart }}>
             {props.children}
         </Context.Provider>
     )
